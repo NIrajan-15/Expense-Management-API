@@ -1,7 +1,10 @@
 package in.nirajansangraula.expensetrackerapi.entity;
 
 import java.sql.Date;
+
+
 import java.math.BigDecimal;
+import java.security.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +16,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @AllArgsConstructor
@@ -37,5 +43,7 @@ public class Expense {
     private String category;
 
     private Date date;
+
+    
 }
 

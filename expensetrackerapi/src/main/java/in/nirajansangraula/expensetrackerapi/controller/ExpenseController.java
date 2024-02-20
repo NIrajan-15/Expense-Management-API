@@ -2,9 +2,16 @@ package in.nirajansangraula.expensetrackerapi.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import in.nirajansangraula.expensetrackerapi.Service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import in.nirajansangraula.expensetrackerapi.entity.Expense;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 
 @RestController
@@ -13,10 +20,43 @@ public class ExpenseController {
     @Autowired
     private ExpenseService expenseService;
 
+    // get all expenses
     @GetMapping("/expenses")
     public List<Expense> getExpenses()
     {
         return expenseService.getAllExpenses();
     }
+
+    // get expense by id using path variable
+    @GetMapping("/expenses/{id}")
+    public Expense getExpenseById(@PathVariable("id") Long id)
+    {
+        return expenseService.getExpenseById(id);
+    }
+
+    // save expense
+    @PostMapping("/expenses")
+    public Expense saveExpense(@RequestBody Expense expense)
+    {
+        return expenseService.saveExpense(expense);
+        
+    }
+
+    // update expense by id
+    @PutMapping("/expenses/{id}")
+    public Expense updateExpense(@RequestBody Expense expense, @PathVariable("id") Long id)
+    {
+        return expenseService.updateExpense(expense, id);
+    }
+
+
+    // delete expense by id
+    @DeleteMapping("/expenses")
+    public String deelteExpenseByID(@RequestParam("id") Long id)
+    {
+        expenseService.deleteExpenseByID(id);
+        return "Expense with "+ id + " is deleted";   
+    }
+
     
 }
