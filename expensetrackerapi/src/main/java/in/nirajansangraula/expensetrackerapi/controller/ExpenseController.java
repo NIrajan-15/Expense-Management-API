@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import in.nirajansangraula.expensetrackerapi.entity.Expense;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class ExpenseController {
     }
 
     // save expense
+    @ResponseStatus(value =  HttpStatus.CREATED)
     @PostMapping("/expenses")
     public Expense saveExpense(@RequestBody Expense expense)
     {
@@ -51,11 +54,11 @@ public class ExpenseController {
 
 
     // delete expense by id
+    @ResponseStatus(value =  HttpStatus.NO_CONTENT)
     @DeleteMapping("/expenses")
-    public String deelteExpenseByID(@RequestParam("id") Long id)
+    public void  deelteExpenseByID(@RequestParam("id") Long id)
     {
-        expenseService.deleteExpenseByID(id);
-        return "Expense with "+ id + " is deleted";   
+        expenseService.deleteExpenseByID(id); 
     }
 
     
