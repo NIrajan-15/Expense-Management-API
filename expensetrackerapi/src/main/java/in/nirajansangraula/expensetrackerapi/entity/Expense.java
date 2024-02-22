@@ -4,7 +4,6 @@ import java.sql.Date;
 
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,6 +43,14 @@ public class Expense {
 
     private Date date;
 
+     
+    @Column(name="created_at", updatable = false, nullable = false)
+    @CreationTimestamp
+    private Date createdAt;
+
+    @Column(name="updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
     
 }
 
