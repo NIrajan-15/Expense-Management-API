@@ -11,8 +11,8 @@ import java.util.Date;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     
-    @ExceptionHandler(ExpenseNotFoundException.class)
-    public ResponseEntity<ErrorObject> handleExpenseNotFoundException(ExpenseNotFoundException exception, WebRequest request) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorObject> handleExpenseNotFoundException(ResourceNotFoundException exception, WebRequest request) {
 
         ErrorObject errObject = new ErrorObject();
         errObject.setMessage(exception.getMessage());
