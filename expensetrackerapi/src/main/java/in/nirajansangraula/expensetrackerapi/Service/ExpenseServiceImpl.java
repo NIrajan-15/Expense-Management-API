@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import in.nirajansangraula.expensetrackerapi.entity.Expense;
-import in.nirajansangraula.expensetrackerapi.exceptions.ExpenseNotFoundException;
 import in.nirajansangraula.expensetrackerapi.exceptions.ResourceNotFoundException;
 import in.nirajansangraula.expensetrackerapi.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
