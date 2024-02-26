@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import in.nirajansangraula.expensetrackerapi.Service.ExpenseService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import in.nirajansangraula.expensetrackerapi.entity.Expense;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,7 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import jakarta.validation.Valid;
 
+import in.nirajansangraula.expensetrackerapi.entity.Expense;
+
 import java.util.List;
+import java.sql.Date;
 
 @RestController
 public class ExpenseController {
@@ -65,5 +66,25 @@ public class ExpenseController {
         expenseService.deleteExpenseByID(id); 
     }
 
+    // get expenses by category
+    @GetMapping("/expenses/category")
+    public List<Expense> getExpenseByCategory(@RequestParam String category, Pageable page)
+    {
+        return expenseService.readByCategory(category, page);
+    }
+
+    @GetMapping("/expenses/name")
+    public List<Expense> getExpensesByName(@RequestParam String keyword, Pageable page)
+    {
+        return expenseService.readByName(keyword, page);
+    }
+
+    @GetMapping("/expenses/date")
+    public List<Expense> getExpensesByDate(@RequestParam(required=false) Date startDate, 
+                                           @RequestParam(required=false) Date endDate, 
+                                           Pageable page)
+    {
+        return expenseService.readByDate(startDate, endDate, page);
+    }
     
 }

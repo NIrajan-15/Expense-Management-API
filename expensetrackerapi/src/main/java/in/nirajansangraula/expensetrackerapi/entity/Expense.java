@@ -42,7 +42,7 @@ public class Expense {
     private String description;
 
     @Column(name="expense_amount")
-    @NotBlank(message="Expense amount must not be null")
+    @NotNull(message="Expense amount must not be null")
     private BigDecimal amount;
 
     @NotBlank(message = "Category must not be null")
