@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 
 import java.util.Date;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
@@ -58,6 +57,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ErrorObject>(errObject, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(ItemAlreadyExistsException.class)
+    public ResponseEntity<ErrorObject> handleItemAlreadyExistsException(Exception exception, WebRequest request)
+    {
+        ErrorObject errObject = new ErrorObject();
+        errObject.setStatusCode(HttpStatus.CONFLICT.value());
+        errObject.setMessage(exception.getMessage());
+        errObject.setTimestamp(new Date());
+
+        return new ResponseEntity<ErrorObject>(errObject, HttpStatus.CONFLICT);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
                                                                   HttpHeaders headers, HttpStatusCode status, WebRequest request) {
@@ -75,6 +85,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(body, HttpStatus.BAD_REQUEST);
 
     }
+
 
 
 }
