@@ -61,7 +61,7 @@ public class ExpenseController {
     // delete expense by id
     @ResponseStatus(value =  HttpStatus.NO_CONTENT)
     @DeleteMapping("/expenses")
-    public void  deelteExpenseByID(@RequestParam("id") Long id)
+    public void  delteExpenseByID(@RequestParam("id") Long id)
     {
         expenseService.deleteExpenseByID(id); 
     }
@@ -73,12 +73,14 @@ public class ExpenseController {
         return expenseService.readByCategory(category, page);
     }
 
+    // get expenses by name
     @GetMapping("/expenses/name")
     public List<Expense> getExpensesByName(@RequestParam String keyword, Pageable page)
     {
         return expenseService.readByName(keyword, page);
     }
 
+    // get expenses by date
     @GetMapping("/expenses/date")
     public List<Expense> getExpensesByDate(@RequestParam(required=false) Date startDate, 
                                            @RequestParam(required=false) Date endDate, 
