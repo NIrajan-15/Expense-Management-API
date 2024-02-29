@@ -28,12 +28,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Register new user
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@Valid @RequestBody UserModel user)
-    {
-        return new ResponseEntity<User> (userService.createUser(user), HttpStatus.CREATED);
-    }
 
     // Get user by id
     @GetMapping("/users/{id}")
