@@ -1,6 +1,7 @@
 package in.nirajansangraula.expensetrackerapi.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import in.nirajansangraula.expensetrackerapi.entity.User;
@@ -17,6 +18,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    // create a new user
     @Override
     public User createUser(UserModel user)
     {
@@ -30,25 +35,29 @@ public class UserServiceImpl implements UserService{
         }
         User newUser = new User();
         BeanUtils.copyProperties(user, newUser);
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(newUser);
     }
 
+    // read a user
     @Override
     public User readUser(Long id){
         return userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found for the id: "+ id));
     }
 
+    // update a user
     @Override
     public User updateUser(UserModel user, Long id)
     {
         User existingUser = readUser(id);
         existingUser.setUsername(user.getUsername() != null ? user.getUsername() : existingUser.getUsername());
         existingUser.setEmail(user.getEmail() != null ? user.getEmail() : existingUser.getEmail());
-        existingUser.setPassword(user.getPassword() != null ? user.getPassword() : existingUser.getPassword());
+        existingUser.setPassword(user.getPassword() != null ? passwordEncoder.encode(user.getPassword()) : existingUser.getPassword());
         return userRepo.save(existingUser);
         
     }
 
+    // delete a user
     @Override
     public void deleteUser(@RequestParam Long id)
     {
