@@ -30,25 +30,25 @@ public class UserController {
 
 
     // Get user by id
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id)
+    @GetMapping("/profile")
+    public ResponseEntity<User> getUserById()
     {
-        return new ResponseEntity<User>(userService.readUser(id), HttpStatus.OK);
+        return new ResponseEntity<User>(userService.readUser(), HttpStatus.OK);
     }
 
     // update user 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody UserModel user, @PathVariable Long id)
+    @PutMapping("/profile")
+    public ResponseEntity<User> updateUser(@RequestBody UserModel user)
     {
-        return new ResponseEntity<User>(userService.updateUser(user, id), HttpStatus.OK);
+        return new ResponseEntity<User>(userService.updateUser(user), HttpStatus.OK);
     }
 
     // delete user
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Long id)
+    @DeleteMapping("/deactivate")
+    public void deleteUser()
     {
-        userService.deleteUser(id);
+        userService.deleteUser();
     }
     
 
