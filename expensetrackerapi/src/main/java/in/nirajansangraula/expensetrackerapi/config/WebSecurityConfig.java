@@ -31,11 +31,6 @@ public class WebSecurityConfig  {
     @Autowired
     private CustomUserDetailService userDetailsService;
 
-    // configure the authentication manager to authenticate the user using the userDetailsService.
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
     
     // security filter chain to provide authorization to specific endpoints and allow all other requests.
     @Bean
@@ -47,9 +42,8 @@ public class WebSecurityConfig  {
                 .requestMatchers("/login", "/register").permitAll()
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-            .httpBasic(withDefaults());
-            
+            .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+             
         return http.build();
     }
 
